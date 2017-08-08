@@ -1,0 +1,20 @@
+{
+    "ServiceSettings": {
+        "ListenAddress": ":3030"
+    },
+    "LogSettings": {
+        "EnableConsole": false
+    },
+    "DatabaseSettings": {
+      "DatabaseUsername": "root",
+      "DatabasePassword": "HJAk{TDfe8X.p4y@Uy",
+    	"DriverName": "mysql",
+    	"ServerName": "localhost",
+    	"DatabaseName": "timedrop_test",
+        "DataSource": "",
+        "DataSourceReplicas": [],
+        "MaxIdleConns": 10,
+        "MaxOpenConns": 10,
+        "Trace": true
+    }
+}

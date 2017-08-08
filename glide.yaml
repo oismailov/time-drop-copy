@@ -1,0 +1,23 @@
+package: .
+import:
+- package: github.com/Sirupsen/logrus
+- package: github.com/asaskevich/govalidator
+- package: github.com/auth0/go-jwt-middleware
+- package: github.com/codegangsta/negroni
+- package: github.com/daseinhorn/negroni-json-recovery
+- package: github.com/dgrijalva/jwt-go
+- package: github.com/gorilla/mux
+- package: github.com/inconshreveable/log15
+- package: github.com/jinzhu/gorm
+  subpackages:
+  - dialects/mysql
+- package: github.com/nicksnyder/go-i18n
+  subpackages:
+  - i18n
+- package: github.com/timehop/apns
+- package: github.com/unrolled/render
+- package: golang.org/x/net
+  subpackages:
+  - context
+- package: gopkg.in/asaskevich/govalidator.v4
+- package: gopkg.in/gomail.v2

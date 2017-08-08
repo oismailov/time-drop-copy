@@ -1,0 +1,65 @@
+hash: 7f12840ece51dd1a83ff86204062258b85a8ca3d3c437b4630f0931135dc8821
+updated: 2016-11-17T00:04:20.803322176+07:00
+imports:
+- name: github.com/asaskevich/govalidator
+  version: 7b3beb6df3c42abd3509abfc3bcacc0fbfb7c877
+- name: github.com/auth0/go-jwt-middleware
+  version: f3f7de3b9e394e3af3b88e1b9457f6f71d1ae0ac
+- name: github.com/codegangsta/negroni
+  version: dcaac9107a7a6ba4cf5143afc145e2b70a1c12c2
+- name: github.com/daseinhorn/negroni-json-recovery
+  version: ebc162b63e1125fee2af90c2c9b663c43cc1e269
+- name: github.com/dgrijalva/jwt-go
+  version: f0777076321ab64f6efc15a82d9d23b98539b943
+- name: github.com/go-sql-driver/mysql
+  version: 3654d25ec346ee8ce71a68431025458d52a38ac0
+- name: github.com/go-stack/stack
+  version: 100eb0c0a9c5b306ca2fb4f165df21d80ada4b82
+- name: github.com/gorilla/context
+  version: aed02d124ae4a0e94fea4541c8effd05bf0c8296
+- name: github.com/gorilla/mux
+  version: 9fa818a44c2bf1396a17f9d5a3c0f6dd39d2ff8e
+- name: github.com/inconshreveable/log15
+  version: 666f95bcf803bb4219720fae9c6626294935346a
+  subpackages:
+  - term
+- name: github.com/jinzhu/gorm
+  version: c1c4f9f86e732a042aac9f37e025893d6d6cabec
+  subpackages:
+  - dialects/mysql
+- name: github.com/jinzhu/inflection
+  version: 8f4d3a0d04ce0b7c0cf3126fb98524246d00d102
+- name: github.com/mattn/go-colorable
+  version: d228849504861217f796da67fae4f6e347643f15
+- name: github.com/mattn/go-isatty
+  version: 66b8e73f3f5cda9f96b69efd03dd3d7fc4a5cdb8
+- name: github.com/nicksnyder/go-i18n
+  version: 37e5c2de3e03e4b82693e3fcb4a6aa2cc4eb07e3
+  subpackages:
+  - i18n
+  - i18n/bundle
+  - i18n/language
+  - i18n/translation
+- name: github.com/Sirupsen/logrus
+  version: f3cfb454f4c209e6668c95216c4744b8fddb2356
+- name: github.com/timehop/apns
+  version: 7dfe710e494f7a058c9a84b0dac547086e419ae9
+- name: github.com/unrolled/render
+  version: 198ad4d8b8a4612176b804ca10555b222a086b40
+- name: golang.org/x/net
+  version: 4971afdc2f162e82d185353533d3cf16188a9f4e
+  subpackages:
+  - context
+- name: golang.org/x/sys
+  version: 62bee037599929a6e9146f29d10dd5208c43507d
+  subpackages:
+  - unix
+- name: gopkg.in/alexcesaro/quotedprintable.v3
+  version: 2caba252f4dc53eaf6b553000885530023f54623
+- name: gopkg.in/asaskevich/govalidator.v4
+  version: 7664702784775e51966f0885f5cd27435916517b
+- name: gopkg.in/gomail.v2
+  version: 81ebce5c23dfd25c6c67194b37d3dd3f338c98b1
+- name: gopkg.in/yaml.v2
+  version: a83829b6f1293c91addabc89d0571c246397bbf4
+testImports: []

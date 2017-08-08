@@ -1,0 +1,38 @@
+[
+  {
+    "id": "verify_code_email_subject",
+    "translation": "Time Drop - Verifizierungs-Code"
+  },
+  {
+    "id": "verify_code_email_body",
+    "translation": "Dein Verifizierungs-Code für Time Drop lautet:\n\n %s"
+  },
+  {
+    "id": "push_friend_request_received",
+    "translation": "Du hast eine Freundschaftsanfrage erhalten!"
+  },
+  {
+    "id": "push_friend_request_accepted",
+    "translation": "Jemand hat deine Freundschaftsanfrage angenommen!"
+  },
+  {
+    "id": "push_game_challenge_received",
+    "translation": "Einer deiner Freunde hat dich herausgefordert!"
+  },
+  {
+    "id": "push_game_won",
+    "translation": "Du hast ein Spiel gewonnen - Gratuliere!"
+  },
+  {
+    "id": "push_game_lost",
+    "translation": "Du hast ein Spiel verloren"
+  },
+  {
+    "id": "got_life_request",
+    "translation": "%s fragt nach einem Leben!"
+  },
+  {
+    "id": "got_life",
+    "translation": "Du hast ein Leven erhalten!"
+  }
+]

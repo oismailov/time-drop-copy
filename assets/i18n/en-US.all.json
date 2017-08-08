@@ -1,0 +1,50 @@
+[
+  {
+    "id": "invalid_token",
+    "translation": "A valid auth token is required to perform this action"
+  },
+  {
+    "id": "register_duplicated_fields",
+    "translation": "Username or email is already assigned to a user"
+  },
+  {
+    "id": "invalid_code",
+    "translation": "Can't login user due to an invalid token"
+  },
+  {
+    "id": "push_friend_request_received",
+    "translation": "You received a friend request!"
+  },
+  {
+    "id": "push_friend_request_accepted",
+    "translation": "Someone accepted your friend request!"
+  },
+  {
+    "id": "push_game_challenge_received",
+    "translation": "One of your friends wants to beat you!"
+  },
+  {
+    "id": "push_game_won",
+    "translation": "You won a game - congrats!"
+  },
+  {
+    "id": "push_game_lost",
+    "translation": "You lost a game"
+  },
+  {
+    "id": "verify_code_email_subject",
+    "translation": "Time Drop - Verification Code"
+  },
+  {
+    "id": "verify_code_email_body",
+    "translation": "This is your verification code for Time Drop:\n\n %s"
+  },
+  {
+    "id": "got_life_request",
+    "translation": "%s asks for a life!"
+  },
+  {
+    "id": "got_life",
+    "translation": "You just got a free life!"
+  }
+]
