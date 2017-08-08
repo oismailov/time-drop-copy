@@ -39,10 +39,12 @@ func main() {
 		SigningMethod: jwt.SigningMethodHS256,
 		UserProperty:  "jwtToken",
 	})
-	
+
 	//parse cmd attributes
 	var flagDevMode bool
+	var port string
 	flag.BoolVar(&flagDevMode, "dev_mode", false, "if true - load dev config")
+	flag.StringVar(&port, "port", "80", "set listen port")
 	flag.Parse()
 
 	if flagDevMode {
@@ -51,7 +53,7 @@ func main() {
 		config.LoadConfig("config/config_prod.json")
 	}
 
-	api.NewServer()
+	api.NewServer(port)
 	v1.InitApi()
 	v2.InitApi()
 	api.StartServer()

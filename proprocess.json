@@ -6,6 +6,7 @@
       "error_file": "/dev/null",
       "log_file": "/dev/null",
       "out_file": "/dev/null",
+      "args": ["-port", ":6000"],
       "env": {
         "PORT": "6000"
       }
@@ -16,6 +17,7 @@
       "error_file": "/dev/null",
       "log_file": "/dev/null",
       "out_file": "/dev/null",
+      "args": ["-port", ":6001"],
       "env": {
         "PORT": "6001"
       }
@@ -26,6 +28,7 @@
       "error_file": "/dev/null",
       "out_file": "/dev/null",
       "log_file": "/dev/null",
+      "args": ["-port", ":6002"],
       "env": {
         "PORT": "6002"
       }
@@ -36,6 +39,7 @@
       "error_file": "/dev/null",
       "log_file": "/dev/null",
       "out_file": "/dev/null",
+      "args": ["-port", ":6003"],
       "env": {
         "PORT": "6003"
       }

@@ -3,8 +3,6 @@ package api
 import (
 	"net/http"
 	"time"
-        "timedrop/config"
-
 
 	l4g "github.com/alecthomas/log4go"
 	"github.com/braintree/manners"
@@ -19,11 +17,11 @@ type Server struct {
 
 var Srv *Server
 
-func NewServer() {
+func NewServer(port string) {
 	l4g.Info("Server is initializing...")
 
 	var httpServer http.Server
-	httpServer.Addr = config.Cfg.ServiceSettings.ListenAddress
+	httpServer.Addr = port
 
 	Srv = &Server{}
 	Srv.Server = manners.NewWithServer(&httpServer)
