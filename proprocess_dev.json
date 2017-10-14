@@ -2,7 +2,7 @@
   "apps": [
     {
       "script": "timedrop_dev",
-      "args": ["-dev_mode", true],
+      "args": "-port=:3030 -dev_mode=true",
       "watch": true,
       "env": {
         "PORT": "3030"

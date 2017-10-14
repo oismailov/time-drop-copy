@@ -8,11 +8,16 @@ import (
 
 	"timedrop/helpers"
 
+	"github.com/NaySoftware/go-fcm"
 	"github.com/timehop/apns"
 )
 
 var apnsCert string
 var apnsKey string
+
+const (
+	firebaseApiKey = "AAAA7_1fgrU:APA91bHJFj-p6ftqlTzedOIi48cYyjTqgbi6AueBxs6lr_s_v8rRzG5gS66fdTCrojsh_MA9Lsi_INcI02tf3cCyNcdpqnYKHrdIaVPcJSaRVYcq72-Pf7ujFB706ODoUSrgnfqcganQ"
+)
 
 // PushToken for APN and GCM
 type PushToken struct {
@@ -41,6 +46,7 @@ func (pushNotification *PushNotification) ReadCerts() error {
 		}
 		apnsCert = string(apnsPEM)
 	}
+
 	if apnsKey == "" {
 		apnsPkey, apnsKeyErr := ioutil.ReadFile("assets/certs/" + certPrefix + "com.faktorzwei.puzzle.Time-Drop.pkey")
 		if apnsKeyErr != nil {
@@ -48,6 +54,7 @@ func (pushNotification *PushNotification) ReadCerts() error {
 		}
 		apnsKey = string(apnsPkey)
 	}
+
 	return nil
 }
 
@@ -89,6 +96,27 @@ func (pushNotification PushNotification) SendFriendRequestPush(receiver User) (e
 		fmt.Println(err)
 	}
 
+	for _, pushToken := range receiver.GetFireBaseTokens() {
+		data := map[string]string{
+			"message": helpers.TranslateStr("push_friend_request_received", receiver.Language),
+		}
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
+	}
+
 	return nil
 }
 
@@ -112,6 +140,27 @@ func (pushNotification PushNotification) SendFriendRequestAcceptedPush(requester
 
 		err := apnsClient.Send(m)
 		fmt.Println(err)
+	}
+
+	for _, pushToken := range requester.GetFireBaseTokens() {
+		data := map[string]string{
+			"message": helpers.TranslateStr("push_friend_request_accepted", requester.Language),
+		}
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
 	}
 
 	return nil
@@ -139,6 +188,27 @@ func (pushNotification PushNotification) SendGameRequestPush(receiver User) (err
 		fmt.Println(err)
 	}
 
+	for _, pushToken := range receiver.GetFireBaseTokens() {
+		data := map[string]string{
+			"message": helpers.TranslateStr("push_game_challenge_received", receiver.Language),
+		}
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
+	}
+
 	return nil
 }
 
@@ -164,6 +234,27 @@ func (pushNotification PushNotification) SendGameWonPush(receiver User) (err err
 		fmt.Println(err)
 	}
 
+	for _, pushToken := range receiver.GetFireBaseTokens() {
+		data := map[string]string{
+			"message": helpers.TranslateStr("push_game_won", receiver.Language),
+		}
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
+	}
+
 	return nil
 }
 
@@ -187,6 +278,27 @@ func (pushNotification PushNotification) SendGameLostPush(receiver User) (err er
 
 		err := apnsClient.Send(m)
 		fmt.Println(err)
+	}
+
+	for _, pushToken := range receiver.GetFireBaseTokens() {
+		data := map[string]string{
+			"message": helpers.TranslateStr("push_game_lost", receiver.Language),
+		}
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
 	}
 
 	return nil
@@ -225,6 +337,27 @@ func (pushNotification PushNotification) SendLifeRequestPush(requester User, use
 		fmt.Println("Feedback for token:", ft.DeviceToken)
 	}
 
+	for _, pushToken := range requester.GetFireBaseTokens() {
+		data := map[string]string{
+			"message": helpers.TranslateStr("got_life_request", requester.Language),
+		}
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
+	}
+
 	return nil
 }
 
@@ -249,6 +382,27 @@ func (pushNotification PushNotification) GiveLifeRequestPush(requester User) (er
 
 		err := apnsClient.Send(m)
 		fmt.Println(err)
+	}
+
+	for _, pushToken := range requester.GetFireBaseTokens() {
+		data := map[string]string{
+			"message": helpers.TranslateStr("got_life", requester.Language),
+		}
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
 	}
 
 	return nil

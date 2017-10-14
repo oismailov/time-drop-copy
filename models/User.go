@@ -373,6 +373,21 @@ func (user *User) GetAPNSTokens() []PushToken {
 	return pushTokens
 }
 
+//GetFireBaseTokens gets the push token
+func (user *User) GetFireBaseTokens() []PushToken {
+	db := GetDatabaseSession()
+
+	var pushTokens []PushToken
+
+	queryToken := PushToken{
+		UserRefer: user.ID,
+		Platform:  "android",
+	}
+
+	db.Model(&PushToken{}).Where(queryToken).Find(&pushTokens)
+	return pushTokens
+}
+
 //GetGuestUsername returns username for a guest
 func GetGuestUsername() string {
 	db := GetDatabaseSession()
