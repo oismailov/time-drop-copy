@@ -3,7 +3,6 @@ package api
 import (
 	"net/http"
 	"time"
-
 	l4g "github.com/alecthomas/log4go"
 	"github.com/braintree/manners"
 	"github.com/gorilla/mux"
@@ -28,9 +27,9 @@ func NewServer(port string) {
 	Srv.Router = mux.NewRouter()
 }
 
-func StartServer() {
+func StartServer(port string) {
 	l4g.Info("Starting server...")
-	//l4g.Info("Server is listening at" + config.Cfg.ServiceSettings.ListenAddress)
+	l4g.Info("Server is listening at" + port)
 
 	var handler http.Handler = Srv.Router
 	Srv.Server.Server.Handler = handler

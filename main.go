@@ -44,7 +44,7 @@ func main() {
 	var flagDevMode bool
 	var port string
 	flag.BoolVar(&flagDevMode, "dev_mode", false, "if true - load dev config")
-	flag.StringVar(&port, "port", "80", "set listen port")
+	flag.StringVar(&port, "port", ":6000", "set listen port")
 	flag.Parse()
 
 	if flagDevMode {
@@ -56,7 +56,7 @@ func main() {
 	api.NewServer(port)
 	v1.InitApi()
 	v2.InitApi()
-	api.StartServer()
+	api.StartServer(port)
 
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)

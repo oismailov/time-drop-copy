@@ -2,18 +2,18 @@
   "apps": [
     {
       "script": "timedrop-srv_linux_amd64",
-      "watch": false,
+      "watch": true,
       "error_file": "/dev/null",
       "log_file": "/dev/null",
       "out_file": "/dev/null",
-      "args": ["-port", ":6000"],
+      "args": ["-port", ":80"],
       "env": {
         "PORT": "6000"
       }
     },
     {
       "script": "timedrop-srv_linux_amd64",
-      "watch": false,
+      "watch": true,
       "error_file": "/dev/null",
       "log_file": "/dev/null",
       "out_file": "/dev/null",
@@ -24,7 +24,7 @@
     },
     {
       "script": "timedrop-srv_linux_amd64",
-      "watch": false,
+      "watch": true,
       "error_file": "/dev/null",
       "out_file": "/dev/null",
       "log_file": "/dev/null",
@@ -35,7 +35,7 @@
     },
     {
       "script": "timedrop-srv_linux_amd64",
-      "watch": false,
+      "watch": true,
       "error_file": "/dev/null",
       "log_file": "/dev/null",
       "out_file": "/dev/null",
