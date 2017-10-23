@@ -32,6 +32,11 @@ type PushToken struct {
 type PushNotification struct {
 }
 
+type PushNotificationFCM struct {
+	Message string `json:"message"`
+	Title   string `json:"title"`
+}
+
 // ReadCerts returns new APNS clients
 func (pushNotification *PushNotification) ReadCerts() error {
 	certPrefix := "development_"
@@ -60,6 +65,7 @@ func (pushNotification *PushNotification) ReadCerts() error {
 
 // GetNewAPNSClient returns new APNS clients
 func (pushNotification *PushNotification) GetNewAPNSClient() (apns.Client, error) {
+
 	pushNotification.ReadCerts()
 
 	apnsGateway := apns.SandboxGateway
@@ -68,14 +74,37 @@ func (pushNotification *PushNotification) GetNewAPNSClient() (apns.Client, error
 	}
 
 	client, err := apns.NewClient(apnsGateway, apnsCert, apnsKey)
+
 	if err != nil {
 		return apns.Client{}, err
 	}
+
 	return client, nil
 }
 
 //SendFriendRequestPush sends friend request push
 func (pushNotification PushNotification) SendFriendRequestPush(receiver User) (err error) {
+	for _, pushToken := range receiver.GetFireBaseTokens() {
+		var data PushNotificationFCM
+		data.Message = helpers.TranslateStr("push_friend_request_received", receiver.Language)
+		data.Title = helpers.TranslateStr("fcm_push_title", receiver.Language)
+
+		ids := []string{
+			string(pushToken.Token),
+		}
+
+		c := fcm.NewFcmClient(firebaseApiKey)
+		c.NewFcmRegIdsMsg(ids, data)
+
+		status, err := c.Send()
+
+		if err == nil {
+			status.PrintResults()
+		} else {
+			fmt.Println(err)
+		}
+	}
+
 	apnsClient, err := pushNotification.GetNewAPNSClient()
 	if err != nil {
 		return err
@@ -96,10 +125,16 @@ func (pushNotification PushNotification) SendFriendRequestPush(receiver User) (e
 		fmt.Println(err)
 	}
 
-	for _, pushToken := range receiver.GetFireBaseTokens() {
-		data := map[string]string{
-			"message": helpers.TranslateStr("push_friend_request_received", receiver.Language),
-		}
+	return nil
+}
+
+//SendFriendRequestAcceptedPush sends friend request push
+func (pushNotification PushNotification) SendFriendRequestAcceptedPush(requester User) (err error) {
+
+	for _, pushToken := range requester.GetFireBaseTokens() {
+		var data PushNotificationFCM
+		data.Message = helpers.TranslateStr("push_friend_request_accepted", requester.Language)
+		data.Title = helpers.TranslateStr("fcm_push_title", requester.Language)
 
 		ids := []string{
 			string(pushToken.Token),
@@ -117,11 +152,6 @@ func (pushNotification PushNotification) SendFriendRequestPush(receiver User) (e
 		}
 	}
 
-	return nil
-}
-
-//SendFriendRequestAcceptedPush sends friend request push
-func (pushNotification PushNotification) SendFriendRequestAcceptedPush(requester User) (err error) {
 	apnsClient, err := pushNotification.GetNewAPNSClient()
 	if err != nil {
 		return err
@@ -142,10 +172,16 @@ func (pushNotification PushNotification) SendFriendRequestAcceptedPush(requester
 		fmt.Println(err)
 	}
 
-	for _, pushToken := range requester.GetFireBaseTokens() {
-		data := map[string]string{
-			"message": helpers.TranslateStr("push_friend_request_accepted", requester.Language),
-		}
+	return nil
+}
+
+//SendGameRequestPush sends friend request push
+func (pushNotification PushNotification) SendGameRequestPush(receiver User) (err error) {
+
+	for _, pushToken := range receiver.GetFireBaseTokens() {
+		var data PushNotificationFCM
+		data.Message = helpers.TranslateStr("push_game_challenge_received", receiver.Language)
+		data.Title = helpers.TranslateStr("fcm_push_title", receiver.Language)
 
 		ids := []string{
 			string(pushToken.Token),
@@ -163,11 +199,6 @@ func (pushNotification PushNotification) SendFriendRequestAcceptedPush(requester
 		}
 	}
 
-	return nil
-}
-
-//SendGameRequestPush sends friend request push
-func (pushNotification PushNotification) SendGameRequestPush(receiver User) (err error) {
 	apnsClient, err := pushNotification.GetNewAPNSClient()
 	if err != nil {
 		return err
@@ -188,10 +219,16 @@ func (pushNotification PushNotification) SendGameRequestPush(receiver User) (err
 		fmt.Println(err)
 	}
 
+	return nil
+}
+
+//SendGameWonPush sends friend request push
+func (pushNotification PushNotification) SendGameWonPush(receiver User) (err error) {
+
 	for _, pushToken := range receiver.GetFireBaseTokens() {
-		data := map[string]string{
-			"message": helpers.TranslateStr("push_game_challenge_received", receiver.Language),
-		}
+		var data PushNotificationFCM
+		data.Message = helpers.TranslateStr("push_game_won", receiver.Language)
+		data.Title = helpers.TranslateStr("fcm_push_title", receiver.Language)
 
 		ids := []string{
 			string(pushToken.Token),
@@ -209,11 +246,6 @@ func (pushNotification PushNotification) SendGameRequestPush(receiver User) (err
 		}
 	}
 
-	return nil
-}
-
-//SendGameWonPush sends friend request push
-func (pushNotification PushNotification) SendGameWonPush(receiver User) (err error) {
 	apnsClient, err := pushNotification.GetNewAPNSClient()
 	if err != nil {
 		return err
@@ -234,10 +266,16 @@ func (pushNotification PushNotification) SendGameWonPush(receiver User) (err err
 		fmt.Println(err)
 	}
 
+	return nil
+}
+
+//SendGameLostPush sends friend request push
+func (pushNotification PushNotification) SendGameLostPush(receiver User) (err error) {
+
 	for _, pushToken := range receiver.GetFireBaseTokens() {
-		data := map[string]string{
-			"message": helpers.TranslateStr("push_game_won", receiver.Language),
-		}
+		var data PushNotificationFCM
+		data.Message = helpers.TranslateStr("push_game_lost", receiver.Language)
+		data.Title = helpers.TranslateStr("fcm_push_title", receiver.Language)
 
 		ids := []string{
 			string(pushToken.Token),
@@ -255,11 +293,6 @@ func (pushNotification PushNotification) SendGameWonPush(receiver User) (err err
 		}
 	}
 
-	return nil
-}
-
-//SendGameLostPush sends friend request push
-func (pushNotification PushNotification) SendGameLostPush(receiver User) (err error) {
 	apnsClient, err := pushNotification.GetNewAPNSClient()
 	if err != nil {
 		return err
@@ -280,10 +313,17 @@ func (pushNotification PushNotification) SendGameLostPush(receiver User) (err er
 		fmt.Println(err)
 	}
 
-	for _, pushToken := range receiver.GetFireBaseTokens() {
-		data := map[string]string{
-			"message": helpers.TranslateStr("push_game_lost", receiver.Language),
-		}
+	return nil
+}
+
+//
+
+//SendLifeRequestPush
+func (pushNotification PushNotification) SendLifeRequestPush(requester User, userName string) (err error) {
+	for _, pushToken := range requester.GetFireBaseTokens() {
+		var data PushNotificationFCM
+		data.Message = fmt.Sprintf(helpers.TranslateStr("got_life_request", requester.Language), userName)
+		data.Title = helpers.TranslateStr("fcm_push_title", requester.Language)
 
 		ids := []string{
 			string(pushToken.Token),
@@ -301,13 +341,6 @@ func (pushNotification PushNotification) SendGameLostPush(receiver User) (err er
 		}
 	}
 
-	return nil
-}
-
-//
-
-//SendLifeRequestPush
-func (pushNotification PushNotification) SendLifeRequestPush(requester User, userName string) (err error) {
 	apnsClient, err := pushNotification.GetNewAPNSClient()
 	if err != nil {
 		return err
@@ -318,9 +351,7 @@ func (pushNotification PushNotification) SendLifeRequestPush(requester User, use
 	message := fmt.Sprintf(helpers.TranslateStr("got_life_request", requester.Language), userName)
 	p.APS.Alert.Body = message
 	p.APS.ContentAvailable = 1
-	fmt.Printf("NewPayload:=====%+v\n\n", p)
 	for _, pushToken := range requester.GetAPNSTokens() {
-		fmt.Printf("pushToken:===%+v\n\n", pushToken)
 		m := apns.NewNotification()
 		m.Payload = p
 		m.DeviceToken = pushToken.Token
@@ -337,10 +368,16 @@ func (pushNotification PushNotification) SendLifeRequestPush(requester User, use
 		fmt.Println("Feedback for token:", ft.DeviceToken)
 	}
 
+	return nil
+}
+
+//GiveLifeRequestPush
+func (pushNotification PushNotification) GiveLifeRequestPush(requester User) (err error) {
+
 	for _, pushToken := range requester.GetFireBaseTokens() {
-		data := map[string]string{
-			"message": helpers.TranslateStr("got_life_request", requester.Language),
-		}
+		var data PushNotificationFCM
+		data.Message = helpers.TranslateStr("got_life", requester.Language)
+		data.Title = helpers.TranslateStr("fcm_push_title", requester.Language)
 
 		ids := []string{
 			string(pushToken.Token),
@@ -358,11 +395,6 @@ func (pushNotification PushNotification) SendLifeRequestPush(requester User, use
 		}
 	}
 
-	return nil
-}
-
-//GiveLifeRequestPush
-func (pushNotification PushNotification) GiveLifeRequestPush(requester User) (err error) {
 	apnsClient, err := pushNotification.GetNewAPNSClient()
 	if err != nil {
 		return err
@@ -382,27 +414,6 @@ func (pushNotification PushNotification) GiveLifeRequestPush(requester User) (er
 
 		err := apnsClient.Send(m)
 		fmt.Println(err)
-	}
-
-	for _, pushToken := range requester.GetFireBaseTokens() {
-		data := map[string]string{
-			"message": helpers.TranslateStr("got_life", requester.Language),
-		}
-
-		ids := []string{
-			string(pushToken.Token),
-		}
-
-		c := fcm.NewFcmClient(firebaseApiKey)
-		c.NewFcmRegIdsMsg(ids, data)
-
-		status, err := c.Send()
-
-		if err == nil {
-			status.PrintResults()
-		} else {
-			fmt.Println(err)
-		}
 	}
 
 	return nil

@@ -34,5 +34,9 @@
   {
     "id": "got_life",
     "translation": "Du hast ein Leven erhalten!"
+  },
+  {
+    "id": "fcm_push_title",
+    "translation": "Time Drop the push notification"
   }
 ]

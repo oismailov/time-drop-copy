@@ -36,6 +36,9 @@ func InitGames(r *mux.Router) {
 //GameCtrl is the controller for /games
 type GameCtrl struct{}
 
+//limit rows for game history
+const historyLimit int = 50
+
 //List handels /games (GET)
 func (gameCtrl GameCtrl) List(res http.ResponseWriter, req *http.Request) {
 	r := render.New(render.Options{})
@@ -54,7 +57,7 @@ func (gameCtrl GameCtrl) List(res http.ResponseWriter, req *http.Request) {
 	var games []models.Game
 
 	sqlQuery := "opponent_refer = ? AND state_creator = ? AND state_opponent != ? AND completed != 1"
-	db.Where(sqlQuery, currentUser.ID, models.GameStateCompleted, models.GameStateCompleted).Find(&games)
+	db.Where(sqlQuery, currentUser.ID, models.GameStateCompleted, models.GameStateCompleted).Limit(historyLimit).Find(&games)
 
 	var parsedGames []models.Game
 	for _, game := range games {
@@ -94,11 +97,11 @@ func (gameCtrl GameCtrl) ListHistory(res http.ResponseWriter, req *http.Request)
 	var games []models.Game
 
 	sqlQuery := "(creator_refer = ? AND state_creator = ?) OR (opponent_refer = ? AND state_opponent = ?)"
-	sqlStmt := db.Where(sqlQuery, currentUser.ID, models.GameStateCompleted, currentUser.ID, models.GameStateCompleted)
+	sqlStmt := db.Where(sqlQuery, currentUser.ID, models.GameStateCompleted, currentUser.ID, models.GameStateCompleted).Limit(historyLimit)
 
 	if requestData.FriendID != "" {
 		sqlQuery = "(creator_refer = ? AND opponent_refer = ?) OR (creator_refer = ? AND opponent_refer = ?) AND completed = 1"
-		sqlStmt = db.Where(sqlQuery, currentUser.ID, requestData.FriendID, requestData.FriendID, currentUser.ID)
+		sqlStmt = db.Where(sqlQuery, currentUser.ID, requestData.FriendID, requestData.FriendID, currentUser.ID).Limit(historyLimit)
 	}
 
 	sqlStmt.Order("updated_at desc").Find(&games)

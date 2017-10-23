@@ -46,5 +46,9 @@
   {
     "id": "got_life",
     "translation": "You just got a free life!"
+  },
+  {
+    "id": "fcm_push_title",
+    "translation": "Time Drop the push notification"
   }
 ]

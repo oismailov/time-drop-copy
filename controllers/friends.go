@@ -248,7 +248,7 @@ func (friendsCtrl FriendsCtrl) RemoveFriend(res http.ResponseWriter, req *http.R
 	}
 
 	var friend models.Friend
-	if err := friend.Delete(owner.ID, friendID); err != nil {
+	if friend.Delete(owner.ID, friendID); err != nil {
 		r.JSON(res, 422, helpers.GenerateErrorResponse(err.Error(), req.Header))
 		return
 	}
