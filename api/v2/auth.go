@@ -40,7 +40,7 @@ func createUser(res http.ResponseWriter, req *http.Request) {
 	r := render.New(render.Options{})
 
 	user := models.User{
-		Username: models.GetGuestUsername(),
+		Username: models.GetGuestUsername(0),
 		Guest:    true,
 	}
 

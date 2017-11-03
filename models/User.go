@@ -157,6 +157,8 @@ func (user *User) Save() error {
 		}
 	}
 
+	user.UserUpdatedAt = time.Now()
+
 	result := db.Save(&user)
 	return result.Error
 }
@@ -389,15 +391,27 @@ func (user *User) GetFireBaseTokens() []PushToken {
 }
 
 //GetGuestUsername returns username for a guest
-func GetGuestUsername() string {
+func GetGuestUsername(guestId int) string {
 	db := GetDatabaseSession()
 
-	var count int
-	db.Model(&User{}).Count(&count)
+	var user User
+	fmt.Printf("guestId: %+v\n", guestId)
+	if guestId == 0 {
+		var count int
+		db.Model(&User{}).Count(&count)
+		guestId = count + 1
+	}
+	userName := "TD" + strconv.Itoa(guestId)
+	userQuery := User{
+		Username: userName,
+	}
 
-	guestId := count + 1
+	db.Where(userQuery).Find(&user)
+	if user.ID != 0 {
+		return GetGuestUsername(guestId + 1)
+	}
 
-	return "TD" + strconv.Itoa(guestId)
+	return userName
 }
 
 //FindAllByFacebookIDs finds a user by facebookID
