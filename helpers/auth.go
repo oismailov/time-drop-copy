@@ -1,6 +1,7 @@
 package helpers
 
 import (
+	"strconv"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -8,7 +9,7 @@ import (
 
 //GetHMACSecret returns HMAC secret for the JWT generation and validation
 func GetHMACSecret() []byte {
-	return []byte("blablabla")
+	return []byte(strconv.FormatInt(time.Now().UnixNano(), 10))
 }
 
 //GenerateJWTToken for auth requests
