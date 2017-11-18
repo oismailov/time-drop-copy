@@ -1,6 +1,8 @@
 package helpers
 
 import (
+	"fmt"
+	"math/rand"
 	"strconv"
 	"time"
 
@@ -9,7 +11,9 @@ import (
 
 //GetHMACSecret returns HMAC secret for the JWT generation and validation
 func GetHMACSecret() []byte {
-	return []byte(strconv.FormatInt(time.Now().UnixNano(), 10))
+	uniqueString := strconv.FormatInt(time.Now().UnixNano()*rand.Int63(), 10)
+	fmt.Printf("Create User unique string: %+v", uniqueString)
+	return []byte(uniqueString)
 }
 
 //GenerateJWTToken for auth requests
